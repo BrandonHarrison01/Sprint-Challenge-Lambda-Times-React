@@ -39,7 +39,11 @@ export default class Content extends Component {
           of the items from cardData. 
         - else, it should only return those cards whose 'tab' matched this.state.selected.
     */
-    return this.state.cards;
+    if (this.state.selected === 'all') {
+      return this.state.cards
+    } else { 
+      return this.state.cards.tab.filter(tab => tab === this.state.selected)
+    };
   };
 
   render() {
@@ -54,11 +58,7 @@ export default class Content extends Component {
           and `selectTabHandler` that includes the function to change the selected tab
         */}
         <Tabs tabs={this.state.tabs} selectedTab={this.state.selected} selectTabHandler={this.changeSelected}/>
-        <Cards 
-
-          //uncomment when filter is working
-          // cards={this.filterCards()}
-          cards={this.state.cards}
+        <Cards cards={this.filterCards()}
         />
       </div>
     );
